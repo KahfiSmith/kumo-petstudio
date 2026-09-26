@@ -68,9 +68,6 @@ export function Navbar() {
                 <span className="font-black text-2xl tracking-tight text-[#18181B] leading-none">
                   KUMO<span className="text-[#FF5C35]">PETS!</span>
                 </span>
-                <span className="text-[9px] font-mono tracking-wider text-white bg-[#2563EB] px-2 py-0.5 rounded-full uppercase font-extrabold">
-                  STORE
-                </span>
               </div>
               <span className="text-[10px] font-bold tracking-wider text-[#52525B] uppercase mt-0.5">
                 Good Food, Happy Tails

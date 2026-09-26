@@ -1,5 +1,5 @@
 import { studioData } from "@/data/petstudio";
-import { Star, CheckCircle, Quote } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 export function ReviewsSection() {
   const { reviews } = studioData;
@@ -48,15 +48,10 @@ export function ReviewsSection() {
                 <Quote className="w-10 h-10 text-[#FF5C35] mb-4 opacity-80" />
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex text-[#FFC72C]">
-                      {[...Array(rev.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#FFC72C]" />
-                      ))}
-                    </div>
-                    <span className="text-[10px] font-black tracking-wider text-[#2563EB] bg-[#EFF6FF] px-2.5 py-1 rounded-full uppercase border border-[#2563EB]/20">
-                      {rev.service}
-                    </span>
+                  <div className="flex items-center text-[#FFC72C]">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#FFC72C]" />
+                    ))}
                   </div>
 
                   <blockquote className="font-extrabold text-base sm:text-lg text-[#18181B] leading-relaxed">
@@ -65,18 +60,12 @@ export function ReviewsSection() {
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t-2 border-[#EAE5D9] flex items-center justify-between">
-                <div>
-                  <p className="font-black text-sm text-[#18181B]">
-                    {rev.author} <span className="text-xs font-semibold text-[#52525B]">(Human of {rev.petName})</span>
-                  </p>
-                  <p className="text-[11px] font-bold text-[#FF5C35] mt-0.5">{rev.petInfo}</p>
-                  <p className="text-[10px] text-[#52525B] mt-0.5">{rev.date}</p>
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] text-[#16A34A] font-black">
-                  <CheckCircle className="w-3.5 h-3.5 text-[#16A34A]" />
-                  <span>Verified</span>
-                </div>
+              <div className="pt-6 mt-6 border-t-2 border-[#EAE5D9]">
+                <p className="font-black text-sm text-[#18181B]">
+                  {rev.author} <span className="text-xs font-semibold text-[#52525B]">(Human of {rev.petName})</span>
+                </p>
+                <p className="text-[11px] font-bold text-[#FF5C35] mt-0.5">{rev.petInfo}</p>
+                <p className="text-[10px] text-[#52525B] mt-0.5">{rev.date}</p>
               </div>
             </article>
           ))}
