@@ -10,6 +10,8 @@ export interface StudioContact {
   fullAddress: string;
   googleMapsUrl: string;
   openStreetMapUrl: string;
+  instagramHandle: string;
+  instagramUrl: string;
 }
 
 export interface OperatingSchedule {
@@ -54,6 +56,8 @@ export interface PantryItem {
   origin: string;
   image: string;
   nutritionHighlight: string;
+  isProductOfTheWeek?: boolean;
+  badge?: string;
 }
 
 export interface CareStandard {
@@ -89,12 +93,50 @@ export interface CareTeamMember {
 export interface CustomerReview {
   id: string;
   author: string;
+  petName: string;
   petInfo: string;
   service: string;
   rating: number;
   date: string;
   comment: string;
   verifiedSource: string;
+}
+
+export interface PetPersonality {
+  id: string;
+  title: string;
+  subtitle: string;
+  badge: string;
+  image: string;
+  href: string;
+  targetCategory: string;
+}
+
+export interface SocialCommunityPost {
+  id: string;
+  image: string;
+  petName: string;
+  caption: string;
+  tag: string;
+}
+
+export interface StorePromo {
+  badge: string;
+  headline: string;
+  subheadline: string;
+  code: string;
+  ctaText: string;
+  whatsappMessage: string;
+}
+
+export interface QuickCategory {
+  id: string;
+  name: string;
+  shortDesc: string;
+  bgHex: string;
+  accentHex: string;
+  image: string;
+  href: string;
 }
 
 export interface StudioConfig {
@@ -111,6 +153,10 @@ export interface StudioConfig {
   transformationStories: TransformationStory[];
   careTeam: CareTeamMember[];
   reviews: CustomerReview[];
+  personalities: PetPersonality[];
+  socialPosts: SocialCommunityPost[];
+  promo: StorePromo;
+  quickCategories: QuickCategory[];
   seo: {
     title: string;
     description: string;

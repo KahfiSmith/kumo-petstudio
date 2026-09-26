@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF8F5;
-  --foreground: #1E1C1A;
-  --surface: #F3EFEA;
-  --border: #E7E2D9;
-  --accent-sage: #58694B;
-  --accent-sage-light: #EEF2EC;
-  --accent-warm: #956249;
-  --accent-warm-light: #F6EFEA;
-  --text-muted: #6C6760;
-  --font-serif: var(--font-newsreader);
+  --background: #FFFDF9;
+  --foreground: #18181B;
+  --surface: #FEF9E7;
+  --surface-card: #FFFFFF;
+  --surface-warm: #F7F3E8;
+  --border: #EAE5D9;
+  --border-bold: #D8D1C2;
+  --accent-orange: #FF5C35;
+  --accent-orange-hover: #E84A23;
+  --accent-orange-light: #FFF1EE;
+  --accent-cobalt: #2563EB;
+  --accent-cobalt-hover: #1D4ED8;
+  --accent-cobalt-light: #EFF6FF;
+  --accent-yellow: #FFC72C;
+  --accent-yellow-hover: #E5B01F;
+  --accent-yellow-light: #FFFBEB;
+  --accent-green: #16A34A;
+  --accent-green-hover: #15803D;
+  --accent-green-light: #F0FDF4;
+  --text-muted: #52525B;
   --font-sans: var(--font-jakarta);
 }
 
@@ -18,13 +28,23 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-card: var(--surface-card);
+  --color-surface-warm: var(--surface-warm);
   --color-border-subtle: var(--border);
-  --color-sage: var(--accent-sage);
-  --color-sage-light: var(--accent-sage-light);
-  --color-warm: var(--accent-warm);
-  --color-warm-light: var(--accent-warm-light);
+  --color-border-bold: var(--border-bold);
+  --color-orange-primary: var(--accent-orange);
+  --color-orange-hover: var(--accent-orange-hover);
+  --color-orange-light: var(--accent-orange-light);
+  --color-cobalt: var(--accent-cobalt);
+  --color-cobalt-hover: var(--accent-cobalt-hover);
+  --color-cobalt-light: var(--accent-cobalt-light);
+  --color-yellow-sun: var(--accent-yellow);
+  --color-yellow-hover: var(--accent-yellow-hover);
+  --color-yellow-light: var(--accent-yellow-light);
+  --color-green-grass: var(--accent-green);
+  --color-green-hover: var(--accent-green-hover);
+  --color-green-light: var(--accent-green-light);
   --color-text-muted: var(--text-muted);
-  --font-serif: var(--font-newsreader);
   --font-sans: var(--font-jakarta);
 }
 
@@ -41,6 +61,6 @@ body {
 }
 
 ::selection {
-  background-color: #58694B;
-  color: #FAF8F5;
+  background-color: #FF5C35;
+  color: #FFFFFF;
 }

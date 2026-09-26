@@ -4,11 +4,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Kumo Pet Atelier & Sanctuary",
     short_name: "Kumo Pet",
-    description: "Sanctuary perawatan hewan peliharaan modern, gentle grooming bebas trauma, dan boutique hotel anabul di Surabaya.",
+    description: "Playful pet lifestyle brand, gentle grooming bebas trauma, dan boutique hotel anabul di Surabaya.",
     start_url: "/",
     display: "standalone",
-    background_color: "#FAF8F5",
-    theme_color: "#58694B",
+    background_color: "#FAF6F0",
+    theme_color: "#E25B36",
     icons: [
       {
         src: "/icon.svg",

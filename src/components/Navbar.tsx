@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { studioData } from "@/data/petstudio";
-import { Menu, X, Phone, ArrowUpRight } from "lucide-react";
+import { LiveStudioStatus } from "@/components/LiveStudioStatus";
+import { Menu, X, ArrowUpRight, Sparkles, ShoppingBag } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,69 +42,75 @@ export function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { href: "#grooming", label: "Spa & Grooming" },
-    { href: "#hotel", label: "Boutique Hotel" },
-    { href: "#pantry", label: "Pet Pantry" },
-    { href: "#standar", label: "Standar Keamanan" },
-    { href: "#kisah", label: "Kisah Anabul" },
-    { href: "#tim", label: "Tim Perawat" },
-    { href: "#booking", label: "Reservasi" },
-    { href: "#lokasi", label: "Lokasi & Jam" },
+    { href: "#categories", label: "Categories" },
+    { href: "#shop-pantry", label: "Shop Goods" },
+    { href: "#care-services", label: "Care & Grooming" },
+    { href: "#hotel", label: "Pet Hotel" },
+    { href: "#personality", label: "Vibes" },
+    { href: "#lokasi", label: "Visit Store" },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E7E2D9] shadow-xs py-3"
-          : "bg-[#FAF8F5]/85 backdrop-blur-xs border-b border-[#E7E2D9]/60 py-4"
+          ? "bg-[#FFFDF9]/95 backdrop-blur-md border-b-2 border-[#EAE5D9] shadow-sm py-2.5"
+          : "bg-[#FFFDF9]/85 backdrop-blur-xs border-b border-[#EAE5D9]/80 py-3.5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-5 lg:px-10">
         <div className="flex items-center justify-between">
-          <Link href="#" className="flex flex-col group">
-            <span className="font-serif text-2xl font-bold tracking-[0.08em] text-[#1E1C1A] uppercase">
-              KUMO <span className="font-sans text-xs font-semibold tracking-[0.2em] text-[#58694B]">ATELIER</span>
-            </span>
-            <span className="text-[10px] font-medium tracking-[0.25em] text-[#6C6760] uppercase">
-              Pet Sanctuary &bull; Surabaya Timur
-            </span>
+          <Link href="#" className="flex items-center gap-2.5 group">
+            <div className="w-10 h-10 rounded-2xl bg-[#FF5C35] flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 shadow-sm">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="font-black text-2xl tracking-tight text-[#18181B] leading-none">
+                  KUMO<span className="text-[#FF5C35]">PETS!</span>
+                </span>
+                <span className="text-[9px] font-mono tracking-wider text-white bg-[#2563EB] px-2 py-0.5 rounded-full uppercase font-extrabold">
+                  STORE
+                </span>
+              </div>
+              <span className="text-[10px] font-bold tracking-wider text-[#52525B] uppercase mt-0.5">
+                Good Food, Happy Tails
+              </span>
+            </div>
           </Link>
 
-          <nav className="hidden xl:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-xs font-semibold tracking-[0.12em] text-[#6C6760] uppercase transition-colors hover:text-[#1E1C1A]"
+                className="text-xs font-extrabold tracking-wider text-[#52525B] uppercase transition-colors hover:text-[#FF5C35] hover:underline underline-offset-8"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <div className="hidden sm:flex items-center gap-5">
-            <a
-              href={`tel:${studioData.contact.emergencyPhone}`}
-              className="flex items-center gap-2 text-xs font-mono tracking-wider text-[#6C6760] hover:text-[#1E1C1A] transition-colors"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#58694B]" />
-              <span>{studioData.contact.formattedEmergencyPhone}</span>
-            </a>
+          <div className="hidden md:flex items-center gap-4">
+            <LiveStudioStatus />
 
             <a
-              href="#booking"
-              className="inline-flex h-10 items-center justify-center border border-[#58694B] bg-[#58694B] px-5 text-xs font-bold tracking-[0.15em] text-[#FAF8F5] uppercase transition-all duration-300 hover:bg-transparent hover:text-[#58694B]"
+              href={`https://wa.me/${studioData.contact.whatsapp}?text=${encodeURIComponent(
+                "Halo Kumo Pets! Saya ingin menanyakan katalog pakan / booking perawatan untuk anabul saya."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center justify-center rounded-2xl bg-[#FF5C35] hover:bg-[#E84A23] px-5 text-xs font-black tracking-wider text-white uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:scale-103 active:scale-98"
             >
-              <span>Booking Spa</span>
-              <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" />
+              <ShoppingBag className="w-3.5 h-3.5 mr-1.5" />
+              <span>WhatsApp Shop</span>
             </a>
           </div>
 
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg border border-[#E7E2D9] text-[#1E1C1A] hover:bg-[#F3EFEA] xl:hidden"
+            className="p-2.5 rounded-2xl border-2 border-[#EAE5D9] text-[#18181B] hover:bg-[#FEF9E7] lg:hidden"
             aria-expanded={isMobileMenuOpen}
             aria-label="Buka menu navigasi"
           >
@@ -113,32 +120,34 @@ export function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="border-b border-[#E7E2D9] bg-[#FAF8F5] px-6 pt-4 pb-8 xl:hidden">
-          <div className="flex flex-col gap-3.5">
+        <div className="border-b-2 border-[#EAE5D9] bg-[#FFFDF9] px-6 pt-4 pb-8 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col gap-3">
+            <div className="pb-3 border-b border-[#EAE5D9]">
+              <LiveStudioStatus />
+            </div>
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-xs font-semibold tracking-[0.15em] text-[#6C6760] uppercase hover:text-[#1E1C1A] py-1 border-b border-[#E7E2D9]/40"
+                className="text-xs font-extrabold tracking-wider text-[#52525B] uppercase hover:text-[#FF5C35] py-2 border-b border-[#EAE5D9]/60 flex items-center justify-between"
               >
-                {link.label}
+                <span>{link.label}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#D8D1C2]" />
               </a>
             ))}
-            <div className="mt-3 flex flex-col gap-3 border-t border-[#E7E2D9] pt-4">
+            <div className="mt-3 flex flex-col gap-3 border-t border-[#EAE5D9] pt-4">
               <a
-                href={`tel:${studioData.contact.emergencyPhone}`}
-                className="text-xs font-mono text-[#6C6760] flex items-center gap-2"
-              >
-                <Phone className="w-3.5 h-3.5 text-[#58694B]" />
-                <span>{studioData.contact.formattedEmergencyPhone}</span>
-              </a>
-              <a
-                href="#booking"
+                href={`https://wa.me/${studioData.contact.whatsapp}?text=${encodeURIComponent(
+                  "Halo Kumo Pets! Saya ingin menanyakan katalog produk / reservasi salon."
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex h-11 items-center justify-center border border-[#58694B] bg-[#58694B] text-xs font-bold tracking-[0.2em] text-[#FAF8F5] uppercase hover:bg-transparent hover:text-[#58694B]"
+                className="flex h-12 items-center justify-center rounded-2xl bg-[#FF5C35] text-xs font-black tracking-wider text-white uppercase hover:bg-[#E84A23] shadow-sm gap-2"
               >
-                Booking Spa &amp; Hotel &rarr;
+                <ShoppingBag className="w-4 h-4" />
+                <span>Chat &amp; Order via WhatsApp</span>
               </a>
             </div>
           </div>
