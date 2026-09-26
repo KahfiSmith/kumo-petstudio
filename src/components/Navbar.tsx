@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { studioData } from "@/data/petstudio";
-import { LiveStudioStatus } from "@/components/LiveStudioStatus";
-import { Menu, X, ArrowUpRight, Sparkles, ShoppingBag } from "lucide-react";
+import { Menu, X, ArrowUpRight, Heart, ShoppingBag } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -62,7 +61,7 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           <Link href="#" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-2xl bg-[#FF5C35] flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 shadow-sm">
-              <Sparkles className="w-5 h-5 text-white" />
+              <Heart className="w-5 h-5 fill-white text-white" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
@@ -92,8 +91,6 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <LiveStudioStatus />
-
             <a
               href={`https://wa.me/${studioData.contact.whatsapp}?text=${encodeURIComponent(
                 "Halo Kumo Pets! Saya ingin menanyakan katalog pakan / booking perawatan untuk anabul saya."
@@ -122,9 +119,6 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="border-b-2 border-[#EAE5D9] bg-[#FFFDF9] px-6 pt-4 pb-8 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-3">
-            <div className="pb-3 border-b border-[#EAE5D9]">
-              <LiveStudioStatus />
-            </div>
             {navLinks.map((link) => (
               <a
                 key={link.href}

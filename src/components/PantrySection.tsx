@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
-import { Sparkles, MessageCircle, MapPin, Flame, ShoppingBag, ArrowUpRight, Star } from "lucide-react";
+import { MapPin, Flame, ShoppingBag, ArrowUpRight, Star } from "lucide-react";
 
 export function PantrySection() {
   const { pantryItems, contact } = studioData;
@@ -14,7 +14,7 @@ export function PantrySection() {
         <div className="flex flex-col justify-between gap-6 border-b-2 border-[#EAE5D9] pb-8 md:flex-row md:items-end">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFF1EE] text-[#FF5C35] text-xs font-black tracking-wider uppercase mb-3 border-2 border-[#FF5C35]/30">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Flame className="w-3.5 h-3.5 text-[#FF5C35]" />
               <span>Pet Pantry &amp; Treats</span>
             </div>
             <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none">

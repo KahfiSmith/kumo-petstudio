@@ -1,5 +1,5 @@
 import { studioData } from "@/data/petstudio";
-import { Sparkles, ArrowRight, Tag } from "lucide-react";
+import { ArrowRight, Tag } from "lucide-react";
 
 export function PromoBanner() {
   const { promo, contact } = studioData;
@@ -14,7 +14,7 @@ export function PromoBanner() {
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
             <div className="space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFC72C] text-[#18181B] text-xs font-black tracking-wider uppercase shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#18181B]" />
+                <Tag className="w-3.5 h-3.5 text-[#18181B]" />
                 <span>{promo.badge}</span>
               </div>
 

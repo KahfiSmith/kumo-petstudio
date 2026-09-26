@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { studioData } from "@/data/petstudio";
-import { ArrowUpRight, Sparkles, Heart, Star, ShoppingBag, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Heart, Star, ShoppingBag, ShieldCheck } from "lucide-react";
 
 export function Hero() {
   const trustMetrics = [
@@ -37,7 +36,7 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="flex flex-col justify-center lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF9E7] border-2 border-[#FFC72C] text-[#18181B] text-xs font-black tracking-wider uppercase w-fit shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#FF5C35]" />
+              <Heart className="w-3.5 h-3.5 fill-[#FF5C35] text-[#FF5C35]" />
               <span>Hey, Pet Parents! Dunia Ceria Anabul</span>
             </div>
 

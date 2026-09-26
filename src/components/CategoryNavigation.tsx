@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, ShoppingBag } from "lucide-react";
 
 export function CategoryNavigation() {
   const { quickCategories } = studioData;
@@ -11,7 +11,7 @@ export function CategoryNavigation() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-[#EAE5D9] text-[#18181B] text-xs font-black tracking-wider uppercase mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#FF5C35]" />
+              <ShoppingBag className="w-3.5 h-3.5 text-[#FF5C35]" />
               <span>Explore By Category</span>
             </div>
             <h2 className="font-black text-3xl sm:text-4xl lg:text-5xl text-[#18181B] uppercase tracking-tight leading-none">
