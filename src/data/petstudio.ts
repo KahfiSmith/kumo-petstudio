@@ -321,7 +321,7 @@ export const studioData: StudioConfig = {
       specialization: "Dermatologi Alergi & Nutrisi Klinis",
       certifications: "PDHI, Certified Veterinary Dermatology (ISFM)",
       experience: "8+ Tahun Pengalaman Klinis",
-      photo: "https://images.unsplash.com/photo-1594824813596-f97e7f607c3c?q=80&w=800&auto=format&fit=crop",
+      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop",
       bio: "Meneliti formulasikan spa ozon herbal khusus kulit tropis dan mengawasi setiap standar keamanan produk di Kumo Pet Studio.",
     },
     {
