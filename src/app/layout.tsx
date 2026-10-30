@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { studioData } from "@/data/petstudio";
 import { JsonLd } from "@/components/JsonLd";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -65,8 +67,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${jakarta.variable} scroll-smooth`}>
+    <html lang="id" className={jakarta.variable}>
       <body className="min-h-screen bg-[#FFFDF9] text-[#18181B] antialiased font-sans selection:bg-[#FF5C35] selection:text-[#FFFFFF]">
+        <SmoothScroll />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#FF5C35] focus:text-white focus:rounded-xl focus:shadow-xl text-sm font-bold"
