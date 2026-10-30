@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { studioData } from "@/data/petstudio";
 import { Calendar, Check, ArrowRight, Heart } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { SPRINGS } from "@/lib/motion";
 
 export function BookingWidget() {
   const { contact, groomingServices, hotelSuites } = studioData;
@@ -46,44 +49,64 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
             <span>Ready for Tail Wags</span>
           </div>
 
-          <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none mb-4">
-            LET&apos;S MAKE <br />
-            <span className="text-[#FF5C35]">THEIR DAY.</span>
-          </h2>
+          <KineticHeadline
+            as="h2"
+            className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none mb-4"
+            lines={[
+              { text: "LET'S MAKE" },
+              { text: "THEIR DAY.", highlight: true, highlightClass: "text-[#FF5C35]" },
+            ]}
+          />
 
           <p className="text-sm sm:text-base text-[#52525B] font-semibold leading-relaxed">
             Pilih sesi spa ozon atau kamar hotel kesayangan Anda. Tim kami akan menyambut anabul Anda dengan penuh sukacita dan perlakuan bebas rasa takut.
           </p>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] p-6 sm:p-10 lg:p-12 border-2 border-[#18181B] shadow-2xl space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 35, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.7 }}
+          className="bg-white rounded-[2.5rem] p-6 sm:p-10 lg:p-12 border-2 border-[#18181B] shadow-2xl space-y-8"
+        >
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-[#18181B] mb-3">
               1. Pilih Kategori Layanan
             </label>
             <div className="grid grid-cols-2 gap-3">
-              {["Spa & Grooming", "Boutique Hotel"].map((srv) => (
-                <button
-                  key={srv}
-                  type="button"
-                  onClick={() => {
-                    setServiceType(srv);
-                    if (srv === "Boutique Hotel") {
-                      setSelectedPackage(hotelSuites[0].name);
-                    } else {
-                      setSelectedPackage(groomingServices[0].name);
-                    }
-                  }}
-                  className={`p-4 rounded-2xl border-2 text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-between ${
-                    serviceType === srv
-                      ? "bg-[#FF5C35] text-white border-[#FF5C35] shadow-sm"
-                      : "bg-[#FFFDF9] text-[#52525B] border-[#EAE5D9] hover:border-[#FF5C35] hover:text-[#18181B]"
-                  }`}
-                >
-                  <span>{srv}</span>
-                  {serviceType === srv && <Check className="w-4 h-4 text-white" />}
-                </button>
-              ))}
+              {["Spa & Grooming", "Boutique Hotel"].map((srv) => {
+                const isSelected = serviceType === srv;
+                return (
+                  <button
+                    key={srv}
+                    type="button"
+                    onClick={() => {
+                      setServiceType(srv);
+                      if (srv === "Boutique Hotel") {
+                        setSelectedPackage(hotelSuites[0].name);
+                      } else {
+                        setSelectedPackage(groomingServices[0].name);
+                      }
+                    }}
+                    className={`relative p-4 rounded-2xl border-2 text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-between z-10 ${
+                      isSelected
+                        ? "text-white border-[#FF5C35] shadow-sm"
+                        : "bg-[#FFFDF9] text-[#52525B] border-[#EAE5D9] hover:border-[#FF5C35] hover:text-[#18181B]"
+                    }`}
+                  >
+                    {isSelected && (
+                      <motion.span
+                        layoutId="booking-service-active"
+                        className="absolute inset-0 bg-[#FF5C35] rounded-xl -z-10"
+                        transition={SPRINGS.snappy}
+                      />
+                    )}
+                    <span className="relative z-10">{srv}</span>
+                    {isSelected && <Check className="w-4 h-4 text-white relative z-10" />}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -121,17 +144,24 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
             <label className="block text-xs font-black uppercase tracking-wider text-[#18181B] mb-3">
               3. Paket Pilihan Spesifik
             </label>
-            <select
-              value={selectedPackage}
-              onChange={(e) => setSelectedPackage(e.target.value)}
-              className="w-full p-4 rounded-2xl border-2 border-[#18181B] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35] shadow-xs cursor-pointer"
-            >
-              {packageOptions.map((pkg) => (
-                <option key={pkg} value={pkg}>
-                  {pkg}
-                </option>
-              ))}
-            </select>
+            <AnimatePresence mode="wait">
+              <motion.select
+                key={serviceType}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                value={selectedPackage}
+                onChange={(e) => setSelectedPackage(e.target.value)}
+                className="w-full p-4 rounded-2xl border-2 border-[#18181B] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35] shadow-xs cursor-pointer"
+              >
+                {packageOptions.map((pkg) => (
+                  <option key={pkg} value={pkg}>
+                    {pkg}
+                  </option>
+                ))}
+              </motion.select>
+            </AnimatePresence>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -144,7 +174,7 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
                 placeholder="Contoh: Amanda"
                 value={ownerName}
                 onChange={(e) => setOwnerName(e.target.value)}
-                className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35]"
+                className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35] transition-colors"
               />
             </div>
             <div>
@@ -156,7 +186,7 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
                 placeholder="Contoh: Mochi"
                 value={petName}
                 onChange={(e) => setPetName(e.target.value)}
-                className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35]"
+                className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35] transition-colors"
               />
             </div>
             <div>
@@ -168,7 +198,7 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
                   type="date"
                   value={bookingDate}
                   onChange={(e) => setBookingDate(e.target.value)}
-                  className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35]"
+                  className="w-full p-3.5 rounded-2xl border-2 border-[#EAE5D9] bg-white text-xs sm:text-sm font-bold text-[#18181B] focus:outline-hidden focus:border-[#FF5C35] transition-colors"
                 />
                 <Calendar className="w-4 h-4 text-[#52525B] absolute right-3.5 top-4 pointer-events-none" />
               </div>
@@ -176,15 +206,18 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
           </div>
 
           <div className="pt-4 border-t-2 border-[#EAE5D9] space-y-4">
-            <a
+            <motion.a
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={SPRINGS.tactile}
               href={generateWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#FF5C35] hover:bg-[#E84A23] text-xs sm:text-sm font-black tracking-wider text-white uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:scale-102 active:scale-98"
+              className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#FF5C35] hover:bg-[#E84A23] text-xs sm:text-sm font-black tracking-wider text-white uppercase shadow-md hover:shadow-lg"
             >
               <span>Kirim Reservasi via WhatsApp</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </motion.a>
 
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#52525B] font-semibold pt-1">
               <span className="flex items-center gap-1.5">
@@ -197,7 +230,7 @@ Mohon informasi ketersediaan slot waktu dan konfirmasi jadwal. Terima kasih!`;
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="mt-8 text-center">
           <p className="text-xs text-[#52525B] font-semibold">

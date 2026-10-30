@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { studioData } from "@/data/petstudio";
 import { Shield, Heart } from "lucide-react";
+import { motion } from "motion/react";
+import { SPRINGS } from "@/lib/motion";
 
 export function Footer() {
   const { contact, operatingLicense, schedule } = studioData;
@@ -12,9 +16,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-zinc-800">
           <div className="lg:col-span-4 space-y-5">
             <Link href="#" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-2xl bg-[#FF5C35] flex items-center justify-center text-white transition-transform group-hover:rotate-6">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 6 }}
+                transition={SPRINGS.tactile}
+                className="w-10 h-10 rounded-2xl bg-[#FF5C35] flex items-center justify-center text-white"
+              >
                 <Heart className="w-5 h-5 fill-white text-white" />
-              </div>
+              </motion.div>
               <span className="font-black text-2xl tracking-tight text-white">
                 KUMO<span className="text-[#FF5C35]">PETS!</span>
               </span>
@@ -117,7 +125,13 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-1.5 text-zinc-400">
             <span>Dibuat dengan</span>
-            <Heart className="w-3.5 h-3.5 text-[#FF5C35] fill-[#FF5C35]" />
+            <motion.span
+              animate={{ scale: [1, 1.25, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="inline-block"
+            >
+              <Heart className="w-3.5 h-3.5 text-[#FF5C35] fill-[#FF5C35]" />
+            </motion.span>
             <span>untuk para pecinta anabul di Surabaya</span>
           </div>
         </div>

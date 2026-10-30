@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
 import { MapPin, Flame, ShoppingBag, ArrowUpRight, Star } from "lucide-react";
+import { motion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { SPRINGS } from "@/lib/motion";
 
 export function PantrySection() {
   const { pantryItems, contact } = studioData;
@@ -17,9 +22,14 @@ export function PantrySection() {
               <Flame className="w-3.5 h-3.5 text-[#FF5C35]" />
               <span>Pet Pantry &amp; Treats</span>
             </div>
-            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none">
-              FAVORITES &amp; <span className="text-[#FF5C35]">BEST SELLERS</span>
-            </h2>
+            <KineticHeadline
+              as="h2"
+              className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none"
+              lines={[
+                { text: "FAVORITES &" },
+                { text: "BEST SELLERS", highlight: true, highlightClass: "text-[#FF5C35]" },
+              ]}
+            />
           </div>
 
           <p className="max-w-md text-xs sm:text-sm text-[#52525B] font-semibold leading-relaxed">
@@ -27,7 +37,14 @@ export function PantrySection() {
           </p>
         </div>
 
-        <div className="mt-14 mb-16 rounded-[2.5rem] bg-[#FEF9E7] border-2 border-[#18181B] p-7 sm:p-12 overflow-hidden shadow-lg">
+        {/* Featured Product */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7 }}
+          className="mt-14 mb-16 rounded-[2.5rem] bg-[#FEF9E7] border-2 border-[#18181B] p-7 sm:p-12 overflow-hidden shadow-xl"
+        >
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="relative aspect-square sm:aspect-16/11 w-full rounded-3xl overflow-hidden bg-white border-2 border-[#18181B] lg:col-span-6 group shadow-md">
               <Image
@@ -35,7 +52,7 @@ export function PantrySection() {
                 alt={featuredProduct.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-106"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
               />
               <div className="absolute top-4 left-4 bg-[#FF5C35] text-white px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md border-2 border-white">
                 <Flame className="w-3.5 h-3.5 fill-white" />
@@ -44,7 +61,7 @@ export function PantrySection() {
             </div>
 
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-white border border-[#EAE5D9] text-xs font-black text-[#FF5C35] uppercase">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-white border border-[#EAE5D9] text-xs font-black text-[#FF5C35] uppercase shadow-2xs">
                 <MapPin className="w-3.5 h-3.5" />
                 <span>Asal Bahan: {featuredProduct.origin}</span>
               </div>
@@ -57,7 +74,7 @@ export function PantrySection() {
                 {featuredProduct.description}
               </p>
 
-              <div className="p-4 rounded-2xl bg-white border-2 border-[#EAE5D9] text-xs font-bold text-[#18181B] flex items-center gap-2.5">
+              <div className="p-4 rounded-2xl bg-white border-2 border-[#EAE5D9] text-xs font-bold text-[#18181B] flex items-center gap-2.5 shadow-2xs">
                 <Star className="w-4 h-4 text-[#FFC72C] fill-[#FFC72C] shrink-0" />
                 <span>{featuredProduct.nutritionHighlight}</span>
               </div>
@@ -70,29 +87,36 @@ export function PantrySection() {
                   </span>
                 </div>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={SPRINGS.tactile}
                   href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
                     `Halo Kumo Pets! Saya ingin memesan Product of the Week: ${featuredProduct.name} (${featuredProduct.price}). Mohon info ketersediaan stok & pengiriman.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-13 items-center justify-center rounded-2xl bg-[#FF5C35] hover:bg-[#E84A23] px-7 text-xs font-black tracking-wider text-white uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:scale-103"
+                  className="inline-flex h-13 items-center justify-center rounded-2xl bg-[#FF5C35] hover:bg-[#E84A23] px-7 text-xs font-black tracking-wider text-white uppercase shadow-md hover:shadow-lg"
                 >
                   <ShoppingBag className="w-4 h-4 mr-2" />
                   <span>Order via WhatsApp</span>
-                </a>
+                </motion.a>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
+        {/* Regular Items */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {regularItems.map((item, idx) => (
-            <div
+            <motion.div
               key={item.id}
-              className={`flex flex-col justify-between rounded-3xl bg-white border-2 border-[#18181B] p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 group ${
-                idx % 2 === 0 ? "hover:-rotate-1" : "hover:rotate-1"
-              }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              whileHover={{ y: -6, rotate: idx % 2 === 0 ? -1 : 1 }}
+              className="flex flex-col justify-between rounded-3xl bg-white border-2 border-[#18181B] p-6 shadow-md hover:shadow-2xl group transition-shadow duration-300"
             >
               <div>
                 <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#FEF9E7] border-2 border-[#EAE5D9] mb-5">
@@ -128,19 +152,22 @@ export function PantrySection() {
                   {item.price}
                 </span>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={SPRINGS.tactile}
                   href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
                     `Halo Kumo Pets! Saya ingin memesan: ${item.name} (${item.price}). Apakah ada stok?`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 items-center justify-center rounded-xl bg-[#FEF9E7] hover:bg-[#FF5C35] hover:text-white text-[#18181B] border-2 border-[#18181B] px-4 text-xs font-black uppercase tracking-wider transition-all duration-200"
+                  className="inline-flex h-10 items-center justify-center rounded-xl bg-[#FEF9E7] hover:bg-[#FF5C35] hover:text-white text-[#18181B] border-2 border-[#18181B] px-4 text-xs font-black uppercase tracking-wider transition-colors duration-200"
                 >
                   <span>Beli</span>
                   <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-                </a>
+                </motion.a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

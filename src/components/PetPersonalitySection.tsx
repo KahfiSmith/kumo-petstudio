@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
 import { ArrowUpRight, Heart } from "lucide-react";
+import { motion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
 
 export function PetPersonalitySection() {
   const { personalities } = studioData;
@@ -14,9 +18,14 @@ export function PetPersonalitySection() {
               <Heart className="w-3.5 h-3.5 fill-[#2563EB] text-[#2563EB]" />
               <span>Tailored Lifestyle</span>
             </div>
-            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none">
-              WHAT&apos;S <span className="text-[#2563EB]">THEIR VIBE?</span>
-            </h2>
+            <KineticHeadline
+              as="h2"
+              className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none"
+              lines={[
+                { text: "WHAT'S" },
+                { text: "THEIR VIBE?", highlight: true, highlightClass: "text-[#2563EB]" },
+              ]}
+            />
           </div>
           <p className="max-w-md text-xs sm:text-sm text-[#52525B] font-semibold leading-relaxed">
             Setiap anabul punya karakter unik. Temukan koleksi perlengkapan dan perawatan yang dirancang khusus untuk gaya hidup mereka.
@@ -24,11 +33,17 @@ export function PetPersonalitySection() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {personalities.map((item) => (
-            <a
+          {personalities.map((item, idx) => (
+            <motion.a
               key={item.id}
               href={item.href}
-              className="group relative rounded-3xl overflow-hidden border-2 border-[#18181B] bg-white flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -8 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative rounded-3xl overflow-hidden border-2 border-[#18181B] bg-white flex flex-col justify-between shadow-md hover:shadow-2xl cursor-pointer transition-shadow duration-300"
             >
               <div className="relative aspect-4/3 w-full overflow-hidden bg-[#FEF9E7]">
                 <Image
@@ -36,9 +51,9 @@ export function PetPersonalitySection() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-108"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
-                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-[#18181B] uppercase tracking-wider border border-[#18181B] shadow-xs">
+                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-[#18181B] uppercase tracking-wider border border-[#18181B] shadow-2xs">
                   {item.badge}
                 </div>
               </div>
@@ -63,12 +78,12 @@ export function PetPersonalitySection() {
                   <span className="text-[11px] font-black uppercase text-[#2563EB]">
                     {item.targetCategory}
                   </span>
-                  <span className="text-xs font-black text-[#18181B] group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs font-black text-[#18181B] group-hover:translate-x-1.5 transition-transform duration-200">
                     &rarr;
                   </span>
                 </div>
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
 import { ArrowUpRight, Award } from "lucide-react";
+import { motion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { SPRINGS } from "@/lib/motion";
 
 export function TeamSection() {
   const { careTeam } = studioData;
@@ -10,14 +15,18 @@ export function TeamSection() {
       <div className="max-w-7xl mx-auto px-5 lg:px-10">
         <div className="flex flex-col justify-between gap-6 border-b-2 border-[#EAE5D9] pb-8 md:flex-row md:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFBEB] text-[#B45309] text-xs font-black tracking-wider uppercase mb-3 border-2 border-[#FFC72C]/40">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFBEB] text-[#B45309] text-xs font-black tracking-wider uppercase mb-3 border-2 border-[#FFC72C]/40 shadow-2xs">
               <Award className="w-3.5 h-3.5" />
               <span>Dedicated Caregivers</span>
             </div>
-            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none">
-              MEET YOUR <br />
-              <span className="text-[#FF5C35]">ANABUL CAREGIVERS.</span>
-            </h2>
+            <KineticHeadline
+              as="h2"
+              className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none"
+              lines={[
+                { text: "MEET YOUR" },
+                { text: "ANABUL CAREGIVERS.", highlight: true, highlightClass: "text-[#FF5C35]" },
+              ]}
+            />
           </div>
           <p className="max-w-md text-xs sm:text-sm text-[#52525B] font-semibold leading-relaxed">
             Seluruh staf perawat dan dokter hewan konsultan memegang lisensi profesional serta terlatih dalam metode penanganan Fear-Free bersertifikasi.
@@ -26,9 +35,14 @@ export function TeamSection() {
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {careTeam.map((member, idx) => (
-            <div
+            <motion.div
               key={member.id}
-              className="flex flex-col justify-between border-2 border-[#18181B] bg-white rounded-[2.5rem] overflow-hidden group transition-all duration-300 hover:shadow-xl shadow-md"
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -8 }}
+              className="flex flex-col justify-between border-2 border-[#18181B] bg-white rounded-[2.5rem] overflow-hidden group transition-shadow duration-300 hover:shadow-2xl shadow-md"
             >
               <div>
                 <div className="relative aspect-3/4 w-full overflow-hidden bg-[#FEF9E7] border-b-2 border-[#18181B]">
@@ -37,16 +51,16 @@ export function TeamSection() {
                     alt={member.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-106"
+                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-108"
                   />
-                  <div className="absolute top-4 left-4 border-2 border-[#18181B] bg-white/95 px-3 py-1 text-[10px] font-black tracking-wider text-[#18181B] uppercase rounded-full shadow-xs">
+                  <div className="absolute top-4 left-4 border-2 border-[#18181B] bg-white/95 px-3 py-1 text-[10px] font-black tracking-wider text-[#18181B] uppercase rounded-full shadow-2xs">
                     Spesialis 0{idx + 1}
                   </div>
                 </div>
 
                 <div className="p-7 space-y-4">
                   <div>
-                    <h3 className="font-black text-2xl text-[#18181B] leading-tight uppercase">
+                    <h3 className="font-black text-2xl text-[#18181B] leading-tight uppercase group-hover:text-[#FF5C35] transition-colors">
                       {member.name}
                     </h3>
                     <p className="text-xs font-black text-[#FF5C35] mt-1 uppercase tracking-wide">
@@ -71,15 +85,18 @@ export function TeamSection() {
               </div>
 
               <div className="p-7 pt-0">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={SPRINGS.tactile}
                   href="#booking"
-                  className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#18181B] bg-[#FEF9E7] text-xs font-black tracking-wider text-[#18181B] uppercase transition-all duration-300 hover:bg-[#FF5C35] hover:text-white shadow-xs"
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#18181B] bg-[#FEF9E7] text-xs font-black tracking-wider text-[#18181B] uppercase transition-colors duration-200 hover:bg-[#FF5C35] hover:text-white shadow-2xs"
                 >
                   <span>Pilih Jadwal Konsultasi</span>
                   <ArrowUpRight className="w-4 h-4" />
-                </a>
+                </motion.a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

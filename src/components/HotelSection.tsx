@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { studioData } from "@/data/petstudio";
 import { Video, ShieldCheck, Footprints, Wind, ArrowUpRight, Check } from "lucide-react";
+import { motion } from "motion/react";
+import { KineticHeadline } from "@/components/motion/KineticHeadline";
+import { SPRINGS } from "@/lib/motion";
 
 export function HotelSection() {
   const { hotelSuites, contact } = studioData;
@@ -33,27 +38,37 @@ export function HotelSection() {
       <div className="max-w-7xl mx-auto px-5 lg:px-10">
         <div className="flex flex-col justify-between gap-6 border-b-2 border-[#EAE5D9] pb-8 md:flex-row md:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border-2 border-[#2563EB]/20 text-[#2563EB] text-xs font-black tracking-wider uppercase mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border-2 border-[#2563EB]/20 text-[#2563EB] text-xs font-black tracking-wider uppercase mb-3 shadow-2xs">
               <Footprints className="w-3.5 h-3.5 text-[#2563EB]" />
               <span>Boutique Pet Hotel</span>
             </div>
-            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none">
-              SLEEPOVER FUN. <br />
-              <span className="text-[#2563EB]">ZERO CAGES.</span>
-            </h2>
+            <KineticHeadline
+              as="h2"
+              className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] uppercase leading-none"
+              lines={[
+                { text: "SLEEPOVER FUN." },
+                { text: "ZERO CAGES.", highlight: true, highlightClass: "text-[#2563EB]" },
+              ]}
+            />
           </div>
           <p className="max-w-md text-xs sm:text-sm text-[#52525B] font-semibold leading-relaxed">
             Tempat liburan anabul yang aman dengan AC dingin, tempat tidur ortopedik, dan laporan video harian saat Anda bepergian.
           </p>
         </div>
 
+        {/* 4 Pillars */}
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 pb-14 border-b-2 border-[#EAE5D9]">
           {keyPillars.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="p-5 rounded-3xl bg-white border-2 border-[#18181B] space-y-3 shadow-xs hover:-translate-y-1 transition-transform"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{ y: -5 }}
+                className="p-5 rounded-3xl bg-white border-2 border-[#18181B] space-y-3 shadow-xs hover:shadow-md transition-shadow"
               >
                 <div className="w-10 h-10 rounded-2xl bg-[#EFF6FF] border border-[#2563EB]/30 flex items-center justify-center text-[#2563EB]">
                   <Icon className="w-5 h-5" />
@@ -64,16 +79,22 @@ export function HotelSection() {
                 <p className="text-xs text-[#52525B] font-medium leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
+        {/* 2 Suites */}
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          {hotelSuites.map((suite) => (
-            <div
+          {hotelSuites.map((suite, index) => (
+            <motion.div
               key={suite.id}
-              className="flex flex-col justify-between rounded-[2.5rem] bg-white border-2 border-[#18181B] overflow-hidden shadow-md group hover:shadow-xl transition-all duration-300"
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              whileHover={{ y: -6 }}
+              className="flex flex-col justify-between rounded-[2.5rem] bg-white border-2 border-[#18181B] overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 group"
             >
               <div>
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-[#FEF9E7] border-b-2 border-[#18181B]">
@@ -82,7 +103,7 @@ export function HotelSection() {
                     alt={suite.name}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-106"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                   />
                   <div className="absolute top-4 left-4 bg-[#2563EB] text-white px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
                     {suite.tag}
@@ -94,7 +115,7 @@ export function HotelSection() {
 
                 <div className="p-8 space-y-5">
                   <div>
-                    <h3 className="font-black text-2xl sm:text-3xl text-[#18181B] uppercase tracking-tight mb-2">
+                    <h3 className="font-black text-2xl sm:text-3xl text-[#18181B] uppercase tracking-tight mb-2 group-hover:text-[#2563EB] transition-colors">
                       {suite.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed font-semibold">
@@ -128,20 +149,23 @@ export function HotelSection() {
                     <span className="text-xs font-bold text-[#52525B]"> / malam</span>
                   </div>
 
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={SPRINGS.tactile}
                     href={`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
                       `Halo Kumo Pets! Saya ingin reservasi kamar hotel: ${suite.name} (${suite.nightlyRate}/malam). Mohon cek ketersediaan kamar.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 text-xs font-black uppercase tracking-wider transition-all duration-200 shadow-sm gap-2"
+                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 text-xs font-black uppercase tracking-wider transition-colors duration-200 shadow-sm gap-2"
                   >
                     <span>Pesan Kamar Hotel</span>
                     <ArrowUpRight className="w-4 h-4" />
-                  </a>
+                  </motion.a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
